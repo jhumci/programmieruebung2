@@ -39,3 +39,25 @@ st.image(image, caption=st.session_state.current_user)
 
 
 
+#%%
+
+
+import pandas as pd
+
+import numpy as np
+
+
+if st.session_state.current_user == "Huber, Julian":
+    #creating a sample dataframe 
+
+    df = pd.DataFrame(
+
+        np.random.randn(7, 5),
+
+        columns=('col %d' % i for i in range(5)))
+
+
+
+    #displaying the dataframe in a static manner
+
+    st.table(df)
