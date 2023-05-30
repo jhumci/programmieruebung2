@@ -5,7 +5,7 @@ data = list(csv.reader(file, delimiter="\t"))
 file.close()
 
 def extract(lst):
-    return [item[1] for item in lst]
+    return [item[0] for item in lst]
 
 ekg_data = extract(data)
 
@@ -45,6 +45,6 @@ list_of_fragments.append(full_dna_sequence[-200:])
 with open('corrupted_files.txt', 'w') as fp:
     for item in list_of_fragments:
         # write each item on a new line
-        fp.write("%s\n" % item)
+        fp.write(item + "\n")
     print('Done')
 # %%

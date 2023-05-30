@@ -46,17 +46,19 @@ sample_df.describe()
 
 # %%
 
-import seaborn as sns
-
-sns.lineplot(x= "Zeit in ms", y="Messwerte in mV",data = sample_df)
-
-# Zu lange fpr
 # %%
 import plotly.express as px
 
 
 fig = px.line(sample_df, x= "Zeit in ms", y="Messwerte in mV")
 fig.show()
+
+#%%
+
+
+import seaborn as sns
+
+sns.lineplot(x= "Zeit in ms", y="Messwerte in mV",data = sample_df)
 
 # %%
 
