@@ -61,8 +61,38 @@ class EKGdata:
         self.ax.set_xlabel("Zeit in ms")
         self.ax.set_ylabel("Spannung in mV")
 
+    def find_absolutes(self):
+        self.df_peaks["Höhe in mV"] = self.df_ekg.iloc[self.df_peaks["Indizes"].values]["Amplitude in [mV]"].values
+        self.df_peaks["Time in ms"] = self.df_ekg.iloc[self.df_peaks["Indizes"].values]["Time in [ms]"].values
 
+    def calc_distance(self):
+        self.df_peaks["Abstand Vorgänger in ms"] =  self.df_peaks["Time in ms"].diff(1)
+        self.df_peaks["Abstand Nachfolger in ms"] =  self.df_peaks["Time in ms"].diff(-1)
 
+    def find_dominaz(self):
+        dominanzs = [0]
+        for idx in range(self.df_peaks.index.min()+1,self.df_peaks.index.max()):
+            #print(idx)
+            index_des_peaks = int(self.df_peaks.iloc[idx]["Indizes"])
+            index_des_vorangegangenen_peaks = int(self.df_peaks.iloc[idx-1]["Indizes"])
+            #print(index_des_vorangegangenen_peaks)
+            index_des_nachfolgenden_peaks = int(self.df_peaks.iloc[idx+1]["Indizes"])
+            #print(index_des_nachfolgenden_peaks)
+
+            lokales_min_vor = self.df_ekg.iloc[index_des_vorangegangenen_peaks:index_des_peaks].min()
+            lokales_min_nach = self.df_ekg.iloc[index_des_peaks:index_des_nachfolgenden_peaks].min()
+            
+            lokales_min_amplitude = (lokales_min_nach["Amplitude in [mV]"] + lokales_min_vor["Amplitude in [mV]"])/2
+            dominanz = self.df_peaks.iloc[idx]["Höhe in mV"] - lokales_min_amplitude
+            dominanzs.append(dominanz)
+
+        dominanzs.append(dominanz)
+        dominanzs[0] = dominanzs[1]
+
+        self.df_peaks["Dominanz in mV"] = dominanzs
+
+    def resample(self,time):
+        
 #%%
 
 my_peakfinder = EKGdata(r"data\ekg_data\01_Ruhe_short.txt")
@@ -73,5 +103,26 @@ my_peakfinder.find_peaks()
 my_peakfinder.df_peaks
 my_peakfinder.estimate_hr()
 my_peakfinder.heat_rate
+my_peakfinder.find_absolutes()
+my_peakfinder.calc_distance()
+my_peakfinder.find_dominaz()
+my_peakfinder.df_peaks
 
+#%%
+my_peakfinder.df_peaks["Abstand Vorgänger in ms"].hist()
+#%%
+
+#my_peakfinder.df_peaks.boxplot(column = "Höhe in mV")
+my_peakfinder.df_peaks["Höhe in mV"].hist()
+#%%
+my_peakfinder.df_peaks.boxplot(column = "Dominanz in mV")
+
+
+# %%
+
+my_peakfinder.df_peaks[""]
+#%%
+
+
+my_peakfinder.df_peaks["Höhe in mV"]
 # %%
