@@ -1,3 +1,4 @@
+#
 class Zoo:
     def __init__(self, name, location):
         self.name = name
@@ -19,8 +20,14 @@ class Zoo:
     def describe(self):
         print(f"Welcome to {self.name} located in {self.location}!")
         print("Our zoo has the following animals:")
+        all_animals = {}
         for animal in self.animals:
             print("- " + animal)
+            if animal in all_animals.keys():
+                all_animals[animal] = all_animals[animal] + 1
+            else:
+                all_animals[animal]
+
 
 
 # Creating instances and using the class methods
