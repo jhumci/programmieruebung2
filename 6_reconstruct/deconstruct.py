@@ -8,14 +8,14 @@ def extract(lst):
     return [item[0] for item in lst]
 
 ekg_data = extract(data)
-
+ekg_data = ekg_data[0:60000]
 # %%
 # the original file()
 
 import random
 
-fragment_length = 2000
-number_of_segements = 500
+fragment_length = 5000
+number_of_segments = 60
 
 
 full_dna_sequence = ekg_data
@@ -28,7 +28,7 @@ random.seed(1)
 
 list_of_fragments.append(full_dna_sequence[0:fragment_length])
 
-for i in range(1,number_of_segements):
+for i in range(1,number_of_segments):
   start = random.randint(0, len(full_dna_sequence))
   end = start + fragment_length
   list_of_fragments.append(full_dna_sequence[start:end])
@@ -36,7 +36,7 @@ for i in range(1,number_of_segements):
 
 #full_dna_sequence
 
-print("Created a list of {} subquences that are {} long.".format(number_of_segements,fragment_length))
+print("Created a list of {} subquences that are {} long.".format(number_of_segments,fragment_length))
 
 list_of_fragments.append(full_dna_sequence[0:200])
 list_of_fragments.append(full_dna_sequence[-200:])
@@ -45,6 +45,6 @@ list_of_fragments.append(full_dna_sequence[-200:])
 with open('corrupted_files.txt', 'w') as fp:
     for item in list_of_fragments:
         # write each item on a new line
-        fp.write(item + "\n")
+        fp.write(str(item) + "\n")
     print('Done')
 # %%
