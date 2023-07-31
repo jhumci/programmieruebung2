@@ -62,6 +62,7 @@ st.pyplot(fig=current_egk_data.fig)
 
 # %% Herzrate bestimmen
 # Schätze die Herzrate 
+current_egk_data.find_peaks()
 current_egk_data.estimate_hr()
 # Zeige die Herzrate an
 st.write("Herzrate ist: ", int(current_egk_data.heat_rate)) 

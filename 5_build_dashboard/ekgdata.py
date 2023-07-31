@@ -46,9 +46,9 @@ class EKGdata:
         # Zuerst gibt es keine HR
         self.heat_rate = None
         # Nach Blick in die Daten: nur jeder zweite Peak ist eine R-Zacke
-        number_r_zacken = my_peakfinder.df_peaks.size / 2
+        number_r_zacken = self.df_peaks.size / 2
         # Daten sind mit f=1000 Hz aufgezeichnet worden. 1 Beobachtung ist 1 ms
-        dauer_singal_in_min = my_peakfinder.df_ekg.size / 1000 / 60
+        dauer_singal_in_min = self.df_ekg.size / 1000 / 60
 
         self.heat_rate  = number_r_zacken / dauer_singal_in_min
 
@@ -92,9 +92,9 @@ class EKGdata:
         self.df_peaks["Dominanz in mV"] = dominanzs
 
     def resample(self,time):
-        
+        pass
 #%%
-
+"""
 my_peakfinder = EKGdata(r"data\ekg_data\01_Ruhe_short.txt")
 my_peakfinder.df_ekg
 my_peakfinder.plot_time_series()
@@ -126,3 +126,4 @@ my_peakfinder.df_peaks[""]
 
 my_peakfinder.df_peaks["Höhe in mV"]
 # %%
+"""
