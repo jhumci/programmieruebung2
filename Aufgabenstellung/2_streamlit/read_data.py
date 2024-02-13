@@ -4,7 +4,7 @@ import json
 # Opening JSON file
 def load_person_data():
     """A Function that knows where te person Database is and returns a Dictionary with the Persons"""
-    file = open("../data/person_db.json")
+    file = open("data/person_db.json")
     person_data = json.load(file)
     return person_data
 # %%

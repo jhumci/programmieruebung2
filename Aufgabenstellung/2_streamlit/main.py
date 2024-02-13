@@ -12,7 +12,7 @@ if 'current_user' not in st.session_state:
 
 # Anlegen des Session State. Bild, wenn es kein Bild gibt
 if 'picture_path' not in st.session_state:
-    st.session_state.picture_path = '../data/pictures/none.jpg'
+    st.session_state.picture_path = 'data/pictures/none.jpg'
 
 
 
@@ -33,31 +33,9 @@ st.write("Der Pfad ist: ", st.session_state.picture_path)
 
 from PIL import Image
 
-image = Image.open("../" + st.session_state.picture_path)
+image = Image.open(st.session_state.picture_path)
 st.image(image, caption=st.session_state.current_user)
 
 
 
 
-#%%
-
-
-import pandas as pd
-
-import numpy as np
-
-
-if st.session_state.current_user == "Huber, Julian":
-    #creating a sample dataframe 
-
-    df = pd.DataFrame(
-
-        np.random.randn(7, 5),
-
-        columns=('col %d' % i for i in range(5)))
-
-
-
-    #displaying the dataframe in a static manner
-
-    st.table(df)
