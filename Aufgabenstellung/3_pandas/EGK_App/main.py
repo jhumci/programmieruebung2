@@ -7,10 +7,16 @@ from read_pandas import make_plot
 # Wo endet sich
 # Was ist die Maximale und Minimale Spannung
 # Grafik
+tab1, tab2 = st.tabs(["EKG-Data", "Power-Data"])
 
-st.write("# My Plot")
+with tab1:
+    st.header("EKG-Data")
+    st.write("# My Plot")
 
-df = read_my_csv()
-fig = make_plot(df)
+    df = read_my_csv()
+    fig = make_plot(df)
 
-st.plotly_chart(fig)
+    st.plotly_chart(fig)
+
+with tab2:
+    st.header("Power-Data")
