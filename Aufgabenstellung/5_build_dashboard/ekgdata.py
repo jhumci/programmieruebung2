@@ -18,7 +18,6 @@ class EKGdata:
 
 
 
-
 if __name__ == "__main__":
     print("This is a module with some functions to read the EKG data")
     file = open("data/person_db.json")
