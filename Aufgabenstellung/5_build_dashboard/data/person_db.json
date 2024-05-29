@@ -4,6 +4,12 @@
 	"firstname": "Julian",
 	"lastname": "Huber",
     "picture_path" : "data/pictures/tb.jpg",
+	"gender" : "male",
+	"intervall_tests": {
+		"id": 1,
+		"date": "10.2.2023",
+		"result_link": "data/activities/activity.csv"
+	},
 	"ekg_tests": [{
 		"id": 1,
 		"date": "10.2.2023",
@@ -18,6 +24,7 @@
 	"firstname": "Yannic",
 	"lastname": "Heyer",
     "picture_path" : "data/pictures/js.jpg",
+	"gender" : "male",
 	"ekg_tests": [{
 		"id": 3,
 		"date": "10.2.2023",
@@ -28,6 +35,7 @@
 	"date_of_birth": 1973,
 	"firstname": "Yunus",
 	"lastname": "Schmirander",
+	"gender" : "male",
     "picture_path" : "data/pictures/bl.jpg",
 	"ekg_tests": [{
 		"id": 4,

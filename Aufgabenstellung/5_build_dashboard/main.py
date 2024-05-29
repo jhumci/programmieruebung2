@@ -49,19 +49,18 @@ st.image(image, caption=st.session_state.aktuelle_versuchsperson)
 
 #% Öffne EKG-Daten
 # TODO: Für eine Person gibt es ggf. mehrere EKG-Daten. Diese müssen über den Pfad ausgewählt werden können
-# Vergleiche Bild und Person
-current_egk_data = ekgdata.EKGdata(r"data\ekg_data\01_Ruhe_short.txt")
+# Vergleiche Bild und Per-son
+current_egk_data = ekgdata.EKGdata(read_person_data.find_person_data_by_name(st.session_state.aktuelle_versuchsperson)["ekg_tests"][0])
 
 #%% EKG-Daten als Matplotlib Plot anzeigen
 # Nachdem die EKG, Daten geladen wurden
 # Erstelle den Plot als Attribut des Objektes
-current_egk_data.plot_time_series()
+current_egk_data.make_plot()
 # Zeige den Plot an
-st.pyplot(fig=current_egk_data.fig)
-
+st.plotly_chart(current_egk_data.fig)
 
 # %% Herzrate bestimmen
 # Schätze die Herzrate 
-current_egk_data.estimate_hr()
+#current_egk_data.estimate_hr()
 # Zeige die Herzrate an
-st.write("Herzrate ist: ", int(current_egk_data.heat_rate)) 
+#st.write("Herzrate ist: ", int(current_egk_data.heat_rate)) 
