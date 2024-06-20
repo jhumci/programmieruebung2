@@ -2,6 +2,7 @@ import streamlit as st
 import read_person_data
 import ekgdata
 import matplotlib.pyplot as plt
+from PIL import Image
 
 #%% Zu Beginn
 
@@ -43,7 +44,7 @@ if st.session_state.aktuelle_versuchsperson in person_names:
 
 #%% Bild anzeigen
 
-from PIL import Image
+
 image = Image.open(st.session_state.picture_path)
 st.image(image, caption=st.session_state.aktuelle_versuchsperson)
 
@@ -55,7 +56,7 @@ current_egk_data = ekgdata.EKGdata(read_person_data.find_person_data_by_name(st.
 #%% EKG-Daten als Matplotlib Plot anzeigen
 # Nachdem die EKG, Daten geladen wurden
 # Erstelle den Plot als Attribut des Objektes
-current_egk_data.make_plot()
+current_egk_data.plot_time_series()
 # Zeige den Plot an
 st.plotly_chart(current_egk_data.fig)
 

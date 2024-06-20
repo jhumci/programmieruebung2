@@ -1,4 +1,4 @@
-Daten sind mit f=1000 Hz aufgezeichnet worden
+Daten sind mit f=500 Hz aufgezeichnet worden
 
-Spalte 1: Zeit
-Spalte 2: Messwerte (mV)
+Spalte 1: Messwerte (mV)
+Spalte 2: Zeit

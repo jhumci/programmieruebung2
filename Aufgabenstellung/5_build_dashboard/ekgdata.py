@@ -18,7 +18,7 @@ class EKGdata:
         self.df = pd.read_csv(self.data, sep='\t', header=None, names=['Messwerte in mV','Zeit in ms',])
 
 
-    def make_plot(self):
+    def plot_time_series(self):
 
         # Erstellte einen Line Plot, der ersten 2000 Werte mit der Zeit aus der x-Achse
         self.fig = px.line(self.df.head(2000), x="Zeit in ms", y="Messwerte in mV")
