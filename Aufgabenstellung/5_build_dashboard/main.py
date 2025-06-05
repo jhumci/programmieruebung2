@@ -3,22 +3,25 @@ import read_person_data
 import ekgdata
 import matplotlib.pyplot as plt
 from PIL import Image
+from person import Person, get_person_data, get_person_object_by_full_name
 
 #%% Zu Beginn
 
-# Lade alle Personen
-person_names = read_person_data.get_person_list(read_person_data.load_person_data())
+# Lade alle Personen als Objekt
+
 
 # Anlegen diverser Session States
-## Gewählte Versuchsperson
-if 'aktuelle_versuchsperson' not in st.session_state:
-    st.session_state.aktuelle_versuchsperson = 'None'
+if "person_list" not in st.session_state:
+    st.session_state.person_list = get_person_data()
 
-## Anlegen des Session State. Bild, wenn es kein Bild gibt
-if 'picture_path' not in st.session_state:
-    st.session_state.picture_path = 'data/pictures/none.jpg'
+# Selectbox Namen
+if "selected_person" not in st.session_state:
+    st.session_state.selected_person = "NONE"
 
-## TODO: Session State für Pfad zu EKG Daten 
+# NEU: hier will ich die Person als Objekt haben, die gerade angezeigt wird
+if "selected_person_object" not in st.session_state:
+    st.session_state.selected_person_object = None
+
 
 #%% Design des Dashboards
 
@@ -26,32 +29,25 @@ if 'picture_path' not in st.session_state:
 st.write("# EKG APP")
 st.write("## Versuchsperson auswählen")
 
-# Auswahlbox, wenn Personen anzulegen sind
-st.session_state.aktuelle_versuchsperson = st.selectbox(
-    'Versuchsperson',
-    options = person_names, key="sbVersuchsperson")
+# Auswahlbox, wenn Personen anzulegen sindst.session_state.selected_person  = st.selectbox("Wähle eine Versuchsperson", options=[person.get_full_name() for person in st.session_state.person_list])
+st.session_state.selected_person  = st.selectbox("Wähle eine Versuchsperson", options=[person.get_full_name() for person in st.session_state.person_list])
 
-# Name der Versuchsperson
-st.write("Der Name ist: ", st.session_state.aktuelle_versuchsperson) 
+
+st.session_state.selected_person_object = get_person_object_by_full_name(st.session_state.selected_person)
+
+# Anzeigen eines Bilds mit Caption
+st.image(st.session_state.selected_person_object.get_image(), caption=st.session_state.selected_person_object.get_full_name())
+
 
 # TODO: Weitere Daten wie Geburtsdatum etc. schön anzeigen
 
 # Nachdem eine Versuchsperson ausgewählt wurde, die auch in der Datenbank ist
-# Finde den Pfad zur Bilddatei
-if st.session_state.aktuelle_versuchsperson in person_names:
-    st.session_state.picture_path = read_person_data.find_person_data_by_name(st.session_state.aktuelle_versuchsperson)["picture_path"]
-    # st.write("Der Pfad ist: ", st.session_state.picture_path) 
 
-#%% Bild anzeigen
-
-
-image = Image.open(st.session_state.picture_path)
-st.image(image, caption=st.session_state.aktuelle_versuchsperson)
 
 #% Öffne EKG-Daten
 # TODO: Für eine Person gibt es ggf. mehrere EKG-Daten. Diese müssen über den Pfad ausgewählt werden können
 # Vergleiche Bild und Per-son
-current_egk_data = ekgdata.EKGdata(read_person_data.find_person_data_by_name(st.session_state.aktuelle_versuchsperson)["ekg_tests"][0])
+current_egk_data = ekgdata.EKGdata(st.session_state.selected_person_object.ekg_tests[0])
 
 #%% EKG-Daten als Matplotlib Plot anzeigen
 # Nachdem die EKG, Daten geladen wurden
