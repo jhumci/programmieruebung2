@@ -47,6 +47,7 @@ class Person:
         self.lastname = person_dict["lastname"]
         self.picture_path = person_dict["picture_path"]
         self.id = person_dict["id"]
+        self.gender = person_dict["gender"]
 
 if __name__ == "__main__":
     print("This is a module with some functions to read the person data")
